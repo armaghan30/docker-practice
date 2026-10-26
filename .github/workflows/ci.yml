@@ -13,7 +13,7 @@ jobs:
      uses: actions/checkout@v4
 
    - name: Build the docker image
-     run: docker build -t my-first-app
+     run: docker build -t my-first-app .
 
    - name: Run the container
      run: docker run -d -p 8080:5000 --name myapp my-first-app
