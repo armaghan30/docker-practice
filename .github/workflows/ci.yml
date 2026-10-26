@@ -1,0 +1,29 @@
+namae: CI
+
+on:
+ push:
+  branches: [main]
+ pull_request:
+
+jobs:
+ build-and-test:
+  runs-on: ubuntu-latest
+  steps:
+   - name: Get the code
+     uses: actions/checkout@v4
+
+   - name: Build the docker image
+     run: docker build -t my-first-app
+
+   - name: Run the container
+     run: docker run -d -p 8080:5000 --name myapp my-first-app
+
+   - name: Test the app
+     run: |
+         sleep 5
+         curl --fail http://localhost:8080
+
+   - name: Show logs if something failed
+     if: failure()
+     run: docker logs myapp
+
